@@ -4,7 +4,7 @@
 
 ## This project is a work in progress, should be finished soon!
 
-Gcode Plasma Delay is a user-friendly web app designed for adding a delay to gcode and nc files for Plasma cutter CNCs. Easily drag and drop your file and download the new file with added delays. Ideal for people just getting started with cutting on a Plasma CNC.
+Gcode Plasma Delay is a user-friendly web app designed for adding a delay to gcode, nc, or cnc files for Plasma cutter CNCs. Easily drag and drop your file and download the new file with added delays. Ideal for people just getting started with cutting on a Plasma CNC.
 
 <p align="center">
   <a href="https://curlytalegamesllc.github.io/GcodePlasmaDelay/"><img height="70px" src="./public/try.png"></a>

@@ -5,7 +5,7 @@
       <img src="@/assets/logo.png" alt="Logo" class="mb-3" style="max-width: 150px;">
       <h1 class="mb-3">Gcode Plasma Delay</h1>
       <p class="lead">
-        Drag and drop your .gcode or .nc file into the area below to add a delay to the start and stop of cutting for your CNC plasma cutter.
+        Drag and drop your .gcode, .nc, or .cnc file into the area below to add a delay to the start and stop of cutting for your CNC plasma cutter.
       </p>
     </div>
 
@@ -28,8 +28,8 @@
     <!-- Drag and drop area -->
     <div class="drag-area border d-flex flex-column justify-content-center align-items-center mb-3" @click="triggerFileInput" @dragover.prevent @drop.prevent="handleDrop" style="height: 200px;">
       <i class="fas fa-file-upload fa-5x mb-4"></i>
-      <p>Drag and drop your .gcode or .nc file here or <span class="file-input-label">click to browse</span></p>
-      <input type="file" ref="fileInput" @change="handleFiles" style="display: none;" accept=".gcode, .nc">
+      <p>Drag and drop your .gcode, .nc, or .cnc file here or <span class="file-input-label">click to browse</span></p>
+      <input type="file" ref="fileInput" @change="handleFiles" style="display: none;" accept=".gcode, .nc, .cnc">
     </div>
 
     <!-- Confirmation message -->
@@ -124,7 +124,7 @@ export default {
       this.handleFiles({ target: { files: event.dataTransfer.files } });
     },
     isValidFile(filename) {
-      return filename.endsWith('.gcode') || filename.endsWith('.nc');
+      return filename.endsWith('.gcode') || filename.endsWith('.nc') || filename.endsWith('.cnc');
     },
     processFile(file) {
     const reader = new FileReader();
