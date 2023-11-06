@@ -50,12 +50,18 @@
       <div class="card card-body">
         <h2 class="mb-4">Converting a Laser CNC to a Plasma CNC</h2>
         <!-- Embedded YouTube video -->
-        <div class="embed-responsive embed-responsive-16by9 mb-3">
+        <!-- <div class="embed-responsive embed-responsive-16by9 mb-3">
           <iframe class="embed-responsive-item"
                   src="https://www.youtube.com/embed/MGpWirqkfZk"
                   allowfullscreen></iframe>
-        </div>
+        </div> -->
+        <p class="text-muted">I'm finishing up my Laser to Plasma CNC conversion, the video will go here</p>
         <p class="mb-4">There are plenty of cheap diode laser CNC kits available on Amazon. They are all pretty similar, but the one that I like the best is the <a href="https://www.amazon.com/dp/B09ZH6HGGZ">Longer RAY5 5W Laser Engraver</a>. It has a web interface to upload gcode files, and it can be run using a touch screen without a connection to a computer.</p>
+        
+        <h4 class="mb-4">Relay Enclosure 3D Print</h4>
+        <img src="@/assets/enclosure.png" class="mb-4" alt="Relay Enclosure">
+        <p>If you have a 3D printer, you can <a href="./RelayEnclosure.zip">3D print these files</a> and use M3 6mm screws to screw it together. If you don't have the right size screws, some hot glue will secure the relay in place as well.</p>
+        
         <!-- Links to software -->
         <h2>CNC Software</h2>
         <p>You'll need some software to create your design files and to cut out your parts.</p>
