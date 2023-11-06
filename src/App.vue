@@ -5,7 +5,7 @@
       <img src="@/assets/logo.png" alt="Logo" class="mb-3" style="max-width: 150px;">
       <h1 class="mb-3">Gcode Plasma Delay</h1>
       <p class="lead">
-        Drag and drop your .gcode, .nc, or .cnc file into the area below to add a delay to the start and stop of cutting for your CNC plasma cutter.
+        Add a delay to the start and stop of cutting for your plasma cutter CNC. CAM software such as LaserGRBL does not support this feature, so this tool will add the necessary commands to your G-code file.
       </p>
     </div>
 
@@ -25,9 +25,15 @@
       </div>
     </div>
 
+    <!-- Text explaining G04P2.0 command -->
+    <p class="text-muted">
+      Enter the dwell command in the format 'G04 P&lt;seconds&gt;', where &lt;seconds&gt; is the time the machine should pause. 
+      For example, 'G04 P2.0' would make the machine pause for 2 seconds.
+    </p>
+
     <!-- Drag and drop area -->
     <div class="drag-area border d-flex flex-column justify-content-center align-items-center mb-3" @click="triggerFileInput" @dragover.prevent @drop.prevent="handleDrop" style="height: 200px;">
-      <i class="fas fa-file-upload fa-5x mb-4"></i>
+      <i class="fas fa-file-upload fa-5x mb-4 mt-2"></i>
       <p>Drag and drop your .gcode, .nc, or .cnc file here or <span class="file-input-label">click to browse</span></p>
       <input type="file" ref="fileInput" @change="handleFiles" style="display: none;" accept=".gcode, .nc, .cnc">
     </div>
@@ -42,20 +48,62 @@
      <!-- Collapsible section for plasma CNC instructions -->
      <div id="cncInstructions" class="collapse my-4">
       <div class="card card-body">
-        <h2>Getting Started with Plasma CNC</h2>
-        <p>Follow these instructions to begin using your plasma CNC cutter:</p>
+        <h2 class="mb-4">Converting a Laser CNC to a Plasma CNC</h2>
         <!-- Embedded YouTube video -->
         <div class="embed-responsive embed-responsive-16by9 mb-3">
           <iframe class="embed-responsive-item"
                   src="https://www.youtube.com/embed/MGpWirqkfZk"
                   allowfullscreen></iframe>
         </div>
+        <p class="mb-4">There are plenty of cheap diode laser CNC kits available on Amazon. They are all pretty similar, but the one that I like the best is the <a href="https://www.amazon.com/dp/B09ZH6HGGZ">Longer RAY5 5W Laser Engraver</a>. It has a web interface to upload gcode files, and it can be run using a touch screen without a connection to a computer.</p>
         <!-- Links to software -->
-        <ul>
-          <li><a href="https://lasergrbl.com/" target="_blank">LaserGRBL Software</a> - for control and operation of your CNC.</li>
-          <li><a href="https://inkscape.org/" target="_blank">Inkscape</a> - for creating and editing designs to be cut.</li>
+        <h2>CNC Software</h2>
+        <p>You'll need some software to create your design files and to cut out your parts.</p>
+        <ul class="mb-4">
+          <li><a href="https://inkscape.org/en/release/" target="_blank">Inkscape</a> - for creating and editing designs to be cut.</li>
+          <li><a href="https://lasergrbl.com/download/" target="_blank">LaserGRBL Software</a> - for control and operation of your CNC.</li>
         </ul>
-        <p>First, create your design in Inkscape and save it as an SVG file. Then, import your SVG into LaserGRBL to convert your design into G-code tailored for your CNC machine. Make sure to configure the proper settings for your material and plasma cutter model. Always perform a test run to ensure everything is calibrated correctly.</p>
+        <div class="instructions-container">
+        <h2 class="instructions-title">Set the Cut Order</h2>
+        <div class="video-wrapper mb-3">
+          <video autoplay muted loop class="instruction-video w-100">
+            <source src="@/assets/cut-order.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="instructions-text">
+          <p class="mb-2">When cutting a part out of metal, you typically want to cut interior parts first and the exterior outline last.</p>
+          <p class="mb-2">LaserGRBL will process your paths from the bottom to the top in Inkscape. To ensure the exterior outline is cut last, follow these steps:</p>
+          <ol class="instructions-list mb-3">
+            <li>Select all objects by navigating to <strong>Edit > Select All</strong>.</li>
+            <li>Convert objects to paths by choosing <strong>Path > Objects to Path</strong>.</li>
+            <li>Select the outline of your part, then raise it to the top using <strong>Object > Raise to Top</strong>.</li>
+          </ol>
+        </div>
+
+        <div class="instructions-container">
+        <h2 class="instructions-title">Convert SVG to Gcode</h2>
+        <div class="video-wrapper mb-3">
+          <video autoplay muted loop class="instruction-video w-100">
+            <source src="@/assets/convert-to-nc.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="instructions-text">
+          <p class="mb-2">Your CNC needs instructions to move the motors and turn the plasma cutter on and off.</p>
+          <p class="mb-2">Use LaserGRBL to convert your Inkscape SVG to a Gcode/nc file by doing the following steps:</p>
+          <ol class="instructions-list mb-3">
+            <li>Load your SVG file by navigating to <strong>File > Open File</strong>.</li>
+            <li>Leave the settings as default and click the <strong>Create!</strong> button.</li>
+            <li>LaserGRBL will create the tool paths based on the SVG file. Save it by going to <strong>File > Save (Advanced)</strong>.</li>
+            <li>Leave the settings as default and click the <strong>Save</strong> button.</li>
+            <li>Use this web app to <strong>add delays to the file</strong></li>
+          </ol>
+        </div>
+      </div>
+
+</div>
+
       </div>
     </div>
 
@@ -64,7 +112,7 @@
     <div class="d-flex justify-content-center">
       <!-- Collapsible section button -->
       <button class="btn btn-primary" type="button" @click="toggleCollapse" :aria-expanded="!isCollapsed.toString()" aria-controls="cncInstructions">
-        <span>{{ isCollapsed ? 'Learn How to Get Started with Plasma CNC' : 'Hide Instructions' }}</span>
+        <span>{{ isCollapsed ? 'Learn How to Get Started with a Plasma CNC' : 'Hide Instructions' }}</span>
         <i :class="['fas', isCollapsed ? 'fa-chevron-down' : 'fa-chevron-up', 'icon-spacing']"></i>
       </button>
     </div>
@@ -102,7 +150,7 @@ export default {
   },
   created() {
     // Get the custom dwell command from localStorage or use the default
-    this.customDwellCommand = localStorage.getItem('customDwellCommand') || 'G04P2.0';
+    this.customDwellCommand = localStorage.getItem('customDwellCommand') || 'G04 P2.0';
   },
   methods: {
     triggerFileInput() {
@@ -180,7 +228,7 @@ export default {
       }, 5000);
     },
     resetDwellCommand() {
-      this.customDwellCommand = 'G04P2.0';
+      this.customDwellCommand = 'G04 P2.0';
       localStorage.setItem('customDwellCommand', this.customDwellCommand);
     },
     toggleCollapse() {
